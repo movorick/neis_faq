@@ -6,7 +6,8 @@ from langchain_openai import ChatOpenAI
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage, ToolMessage
 import faq_retriever as retriever
 import os
-
+# secrets.toml에 등록된 키 가져오기
+OPEN_API_KEY = st.secrets["OPENAI_API_KEY"]
 # 모델 초기화
 llm = ChatOpenAI(model="gpt-4o-mini",api_key=OPENAI_API_KEY)
 
@@ -65,6 +66,7 @@ if prompt := st.chat_input():
         response = get_ai_response(st.session_state["messages"],docs)
         result = st.chat_message("assistant").write_stream(response) # AI 메시지 출력
     st.session_state["messages"].append(AIMessage(result)) # AI 메시지 저장    
+
 
 
 
