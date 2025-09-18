@@ -2,10 +2,10 @@
 from langchain_openai import OpenAIEmbeddings
 from langchain_openai import ChatOpenAI
 import os
-from dotenv import load_dotenv
 from langchain_chroma import Chroma
-load_dotenv()
-OPEN_API_KEY=os.getenv('OPEN_API_KEY')
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 embedding = OpenAIEmbeddings(model='text-embedding-3-large',api_key=OPEN_API_KEY)
 
 
@@ -64,6 +64,7 @@ query_augmentation_prompt = ChatPromptTemplate.from_messages(
 )
 
 query_augmentation_chain = query_augmentation_prompt |llm| StrOutputParser()
+
 
 
 
