@@ -4,7 +4,7 @@ sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
 import streamlit as st
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage, ToolMessage
-import faq_retriever as retriever
+import retriever
 import os
 # secrets.toml에 등록된 키 가져오기
 OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
@@ -66,6 +66,7 @@ if prompt := st.chat_input():
         response = get_ai_response(st.session_state["messages"],docs)
         result = st.chat_message("assistant").write_stream(response) # AI 메시지 출력
     st.session_state["messages"].append(AIMessage(result)) # AI 메시지 저장    
+
 
 
 
