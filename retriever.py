@@ -12,20 +12,24 @@ embedding = OpenAIEmbeddings(model='text-embedding-3-large',api_key=OPEN_API_KEY
 llm = ChatOpenAI(model="gpt-4o",api_key=OPEN_API_KEY)
 
 # Load Chroma store
-from langchain_chroma import Chroma
-print("Loading existing Chroma store")
+
 import gdown, zipfile, os
-url = "https://drive.google.com/file/d/1_XS1t7NqV2AdB12bd6SJJL9NfLiWKFsT/view?usp=drive_link"
-output = "faq_chroma.zip"
+
+url = "https://drive.google.com/uc?id=1_XS1t7NqV2AdB12bd6SJJL9NfLiWKFsT"
+output = "chroma.zip"
 gdown.download(url, output, quiet=False)
 
 with zipfile.ZipFile(output, "r") as zip_ref:
     zip_ref.extractall("chroma_db")
-persist_directory = 'croma_db'
+
+print("Loading existing Chroma store")
+persist_directory = 'chroma_db'
 vectorstore = Chroma(
     persist_directory=persist_directory, 
     embedding_function=embedding
 )
+
+
 
 # Create retriever
 retriever = vectorstore.as_retriever(k=3)
@@ -59,4 +63,5 @@ query_augmentation_prompt = ChatPromptTemplate.from_messages(
 )
 
 query_augmentation_chain = query_augmentation_prompt |llm| StrOutputParser()
+
 
