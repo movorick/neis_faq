@@ -10,8 +10,8 @@ from langchain_chroma import Chroma
 llm = ChatOpenAI(model="gpt-4o")
 
 # Load Chroma store
-#url = "https://drive.google.com/uc?id=1_XS1t7NqV2AdB12bd6SJJL9NfLiWKFsT"
-#output = "faq_chroma.zip"
+url = "https://drive.google.com/uc?id=1_XS1t7NqV2AdB12bd6SJJL9NfLiWKFsT"
+output = "faq_chroma.zip"
 #gdown.download(url, output, quiet=False)
 #with zipfile.ZipFile(output, "r") as zip_ref:
 #    zip_ref.extractall("chroma_db")
@@ -75,6 +75,7 @@ query_augmentation_prompt = ChatPromptTemplate.from_messages(
 )
 
 query_augmentation_chain = query_augmentation_prompt |llm| StrOutputParser()
+
 
 
 
