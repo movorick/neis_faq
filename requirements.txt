@@ -4,3 +4,4 @@ langchain-openai
 openai
 load_dotenv
 langchain_chroma
+gdown
