@@ -3,10 +3,7 @@ from langchain_openai import OpenAIEmbeddings
 from langchain_openai import ChatOpenAI
 import os
 from langchain_chroma import Chroma
-__import__('pysqlite3')
-import sys
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
-embedding = OpenAIEmbeddings(model='text-embedding-3-large',api_key=OPEN_API_KEY)
+embedding = OpenAIEmbeddings(model='text-embedding-3-large')
 
 
 # 언어 모델 불러오기
@@ -64,6 +61,7 @@ query_augmentation_prompt = ChatPromptTemplate.from_messages(
 )
 
 query_augmentation_chain = query_augmentation_prompt |llm| StrOutputParser()
+
 
 
 
