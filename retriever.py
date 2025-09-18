@@ -7,7 +7,7 @@ embedding = OpenAIEmbeddings(model='text-embedding-3-large')
 
 
 # 언어 모델 불러오기
-llm = ChatOpenAI(model="gpt-4o",api_key=OPEN_API_KEY)
+llm = ChatOpenAI(model="gpt-4o")
 
 # Load Chroma store
 
@@ -61,6 +61,7 @@ query_augmentation_prompt = ChatPromptTemplate.from_messages(
 )
 
 query_augmentation_chain = query_augmentation_prompt |llm| StrOutputParser()
+
 
 
 
