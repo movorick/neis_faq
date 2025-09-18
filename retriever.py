@@ -1,33 +1,47 @@
 # 임베딩 모델 선언하기
 from langchain_openai import OpenAIEmbeddings
 from langchain_openai import ChatOpenAI
-import os
+import os, sys, zipfile, gdown
 from langchain_chroma import Chroma
-embedding = OpenAIEmbeddings(model='text-embedding-3-large')
+
 
 
 # 언어 모델 불러오기
 llm = ChatOpenAI(model="gpt-4o")
 
 # Load Chroma store
+#url = "https://drive.google.com/uc?id=1_XS1t7NqV2AdB12bd6SJJL9NfLiWKFsT"
+#output = "faq_chroma.zip"
+#gdown.download(url, output, quiet=False)
+#with zipfile.ZipFile(output, "r") as zip_ref:
+#    zip_ref.extractall("chroma_db")
 
-import gdown, zipfile, os
+# 폴더 없을 때만 다운로드 & 압축 해제
+if not os.path.exists("faq_chroma"): 
+    gdown.download(url, output, quiet=False)
+    with zipfile.ZipFile(output, "r") as zip_ref:
+        zip_ref.extractall("faq_chroma")
+# ---- 2. 압축 구조 확인 & 올바른 persist_directory 찾기 ----
+def find_chroma_dir(base_dir="faq_chroma"):
+    for root, dirs, files in os.walk(base_dir):
+        if "chroma.sqlite3" in files:
+            return root
+    return None
 
-url = "https://drive.google.com/uc?id=1_XS1t7NqV2AdB12bd6SJJL9NfLiWKFsT"
-output = "faq_chroma.zip"
-gdown.download(url, output, quiet=False)
+persist_directory = find_chroma_dir("faq_chroma")
+if not persist_directory:
+    raise RuntimeError("❌ chroma.sqlite3 not found inside extracted folder!")
 
-with zipfile.ZipFile(output, "r") as zip_ref:
-    zip_ref.extractall("chroma_db")
+print(f"✅ Loading Chroma store from: {persist_directory}")
 
-print("Loading existing Chroma store")
-persist_directory = 'chroma_db'
+
+# ---- 3. 임베딩 & 벡터스토어 로드 ----
+embedding = OpenAIEmbeddings(model="text-embedding-3-large")
+
 vectorstore = Chroma(
-    persist_directory=persist_directory, 
+    persist_directory=persist_directory,
     embedding_function=embedding
 )
-
-
 
 # Create retriever
 retriever = vectorstore.as_retriever(k=3)
@@ -61,6 +75,7 @@ query_augmentation_prompt = ChatPromptTemplate.from_messages(
 )
 
 query_augmentation_chain = query_augmentation_prompt |llm| StrOutputParser()
+
 
 
 
