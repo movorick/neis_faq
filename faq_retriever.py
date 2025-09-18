@@ -8,7 +8,7 @@ loader=PyPDFLoader('faq.pdf')
 faq_data=loader.load()
 text_splitter=RecursiveCharacterTextSplitter(chunk_size=1000,chunk_overlap=100)
 all_splits=text_splitter.split_documents(faq_data)
-embedding=OpenAIEmbeddings(model='text-embedding-3-large',api_key=OPENAI_API_KEY)
+embedding=OpenAIEmbeddings(model='text-embedding-3-large')
 llm=ChatOpenAI(model='gpt-4o')
 persist_dir='chroma_faq'
 if not os.path.exists(persist_dir):
@@ -49,6 +49,7 @@ query_augmentation_prompt=ChatPromptTemplate.from_messages(
     ]
 )
 query_augmentation_chain=query_augmentation_prompt|llm|StrOutputParser()
+
 
 
 
