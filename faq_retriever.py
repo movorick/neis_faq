@@ -3,10 +3,10 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings
 from langchain_openai import ChatOpenAI
-#from dotenv import load_dotenv
 import os
-#load_dotenv()
-#OPEN_API_KEY=os.getenv('OPEN_API_KEY')
+__import__("pysqlite3")
+import sys
+sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
 loader=PyPDFLoader('faq.pdf')
 faq_data=loader.load()
 text_splitter=RecursiveCharacterTextSplitter(chunk_size=1000,chunk_overlap=100)
@@ -52,4 +52,5 @@ query_augmentation_prompt=ChatPromptTemplate.from_messages(
     ]
 )
 query_augmentation_chain=query_augmentation_prompt|llm|StrOutputParser
+
 
