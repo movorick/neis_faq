@@ -3,11 +3,10 @@ langchain
 langchain-openai
 openai
 load_dotenv
-#langchain_chroma
-gdown
-# ---- SQLite 최신 바이너리 (필수: Streamlit Cloud에서 시스템 sqlite 대체) ----
-pysqlite3-binary
-# ---- Vector store (ChromaDB) ----
-chromadb>=0.5.5
+langchain_chroma
+langchain_community
+
+
+
 
 
