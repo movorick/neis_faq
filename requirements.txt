@@ -5,6 +5,8 @@ openai
 load_dotenv
 langchain_chroma
 langchain_community
+pysqlite3-binary
+
 
 
 
