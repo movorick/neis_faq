@@ -16,7 +16,7 @@ llm = ChatOpenAI(model="gpt-4o",api_key=OPEN_API_KEY)
 import gdown, zipfile, os
 
 url = "https://drive.google.com/uc?id=1_XS1t7NqV2AdB12bd6SJJL9NfLiWKFsT"
-output = "chroma.zip"
+output = "faq_chroma.zip"
 gdown.download(url, output, quiet=False)
 
 with zipfile.ZipFile(output, "r") as zip_ref:
@@ -63,5 +63,6 @@ query_augmentation_prompt = ChatPromptTemplate.from_messages(
 )
 
 query_augmentation_chain = query_augmentation_prompt |llm| StrOutputParser()
+
 
 
