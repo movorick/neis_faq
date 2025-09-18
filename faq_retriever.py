@@ -23,7 +23,7 @@ else:
     print('loading existing Chroma Store')
     vectorstore=Chroma(
         persist_directory=persist_dir,
-        embedding=embedding,
+        embedding_function=embedding,
     )
 
 retriever=vectorstore.as_retriever(k=3)
@@ -49,6 +49,7 @@ query_augmentation_prompt=ChatPromptTemplate.from_messages(
     ]
 )
 query_augmentation_chain=query_augmentation_prompt|llm|StrOutputParser()
+
 
 
 
