@@ -4,8 +4,6 @@ from langchain_openai import ChatOpenAI
 import os, sys, zipfile, gdown
 from langchain_chroma import Chroma
 
-
-print('hello')
 # 언어 모델 불러오기
 llm = ChatOpenAI(model="gpt-4o")
 
@@ -75,6 +73,7 @@ query_augmentation_prompt = ChatPromptTemplate.from_messages(
 )
 
 query_augmentation_chain = query_augmentation_prompt |llm| StrOutputParser()
+
 
 
 
