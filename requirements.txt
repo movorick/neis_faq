@@ -1,10 +1,11 @@
 pysqlite3-binary>=0.5.3
 streamlit>=1.36
 
-langchain==0.2.1
-langchain-community>=0.2.10
-langchain-openai>=0.1.22
-langchain-chroma>=0.1.2
+langchain==0.2.14
+langchain-core==0.2.24
+langchain-community==0.2.11
+langchain-openai==0.1.22
+langchain-chroma==0.1.2
 chromadb>=0.5.5
 openai>=1.44.0
 
@@ -15,6 +16,7 @@ pypdf>=4.0.0
 tiktoken>=0.7.0
 python-dotenv>=1.0.1
 gdown>=5.1.0
+
 
 
 
