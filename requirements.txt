@@ -6,7 +6,7 @@ langchain-core>=0.2.32
 langchain-community==0.2.11
 langchain-openai==0.1.22
 langchain-chroma==0.1.2
-chromadb==0.5.5
+chromadb==0.4.24
 openai>=1.44.0
 
 # PDF 로더용
@@ -16,6 +16,7 @@ pypdf>=4.0.0
 tiktoken>=0.7.0
 python-dotenv>=1.0.1
 gdown>=5.1.0
+
 
 
 
